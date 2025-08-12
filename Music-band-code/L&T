@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Riff Riot — Official Band</title>
+
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;600&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --bg:#070606;
+    --card:#0f0f10;
+    --accent1:#ff0057;
+    --accent2:#00e0ff;
+    --muted:#bfc4c9;
+    --glass: rgba(255,255,255,0.04);
+  }
+
+  /* Global */
+  *{box-sizing:border-box}
+  html,body{height:100%}
+  body{
+    margin:0;
+    background:linear-gradient(180deg, #050505 0%, #0a0a0a 100%);
+    color:#e9eef2;
+    font-family: 'Inter', system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    -webkit-font-smoothing:antialiased;
+    -moz-osx-font-smoothing:grayscale;
+    line-height:1.5;
+  }
+
+  a{color:inherit}
+  img{max-width:100%;display:block}
+
+  /* Sticky header / nav */
+  header{
+    position:fixed;
+    top:0; left:0; right:0;
+    z-index:60;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:14px 28px;
+    background:linear-gradient(180deg, rgba(7,7,7,0.85), rgba(7,7,7,0.55));
+    backdrop-filter: blur(6px);
+    border-bottom:1px solid rgba(255,255,255,0.03);
+  }
+  .brand{
+    display:flex;align-items:center;gap:14px;text-decoration:none;
+  }
+  .logo{
+    width:44px;height:44px;border-radius:8px;
+    background:linear-gradient(135deg,var(--accent1),var(--accent2));
+    display:inline-grid;place-items:center;font-weight:700;color:#070606;font-family: 'Montserrat', sans-serif;
+    box-shadow:0 6px 30px rgba(0,0,0,0.6), 0 0 24px rgba(255,0,87,0.08);
+  }
+  .brand h1{font-size:1.05rem;margin:0;color:#fff;font-family:'Montserrat',sans-serif;letter-spacing:1px}
+  nav{display:flex;gap:18px;align-items:center}
+  nav a{
+    color:var(--muted);
+    text-decoration:none;font-weight:600;
+    padding:8px 12px;border-radius:8px;transition:all .18s;
+  }
+  nav a:hover{color:white;background:var(--glass);transform:translateY(-2px);}
+
+  /* Hero */
+  .hero{
+    height:100vh;
+    display:grid;
+    place-items:center;
+    position:relative;
+    padding:0 20px;
+    margin-top:70px; /* header offset */
+    overflow:hidden;
+  }
+  .hero::before{
+    content:"";
+    position:absolute;inset:0;
+    background:
+      linear-gradient(180deg, rgba(4,4,4,0.25), rgba(4,4,4,0.6));
+    z-index:1;
+  }
+  .hero-bg{
+    position:absolute;inset:0;background-image:
+      url('https://images.unsplash.com/photo-1518972559570-7cc1309f3229?auto=format&fit=crop&w=2000&q=80');
+    background-position:center;
+    background-size:cover;
+    transform:translateZ(0);
+    filter:contrast(0.95) saturate(1.05);
+    z-index:0;
+    /* subtle slow zoom */
+    animation: bg-zoom 18s linear infinite alternate;
+  }
+  @keyframes bg-zoom{from{transform:scale(1)} to{transform:scale(1.05)}}
+
+  .hero-inner{
+    position:relative;z-index:3;max-width:1100px;text-align:center;padding:40px;
+  }
+  .hero-title{
+    font-family:'Montserrat',sans-serif;
+    font-size: clamp(2.4rem, 5vw, 4.4rem);
+    margin:0;
+    letter-spacing:1px;
+    line-height:1;
+    color:transparent;
+    background:linear-gradient(90deg,var(--accent2),var(--accent1));
+    -webkit-background-clip:text;background-clip:text;
+    text-shadow: 0 6px 30px rgba(0,0,0,0.6);
+  }
+  .hero-sub{
+    margin-top:16px;color:rgba(230,235,240,0.9);max-width:720px;margin-left:auto;margin-right:auto;
+    font-weight:400;font-size:1.05rem;
+    opacity:0.95;
+  }
+  .hero-cta{
+    margin-top:22px;display:inline-grid;grid-auto-flow:column;gap:12px;align-items:center;justify-content:center;
+  }
+  .cta{
+    border:0;padding:12px 22px;border-radius:30px;font-weight:700;cursor:pointer;
+    background:linear-gradient(90deg,var(--accent1),var(--accent2));
+    color:#070606; box-shadow:0 10px 30px rgba(0,0,0,0.5), 0 0 30px rgba(255,0,87,0.06);
+    transition:transform .18s;
+  }
+  .cta:hover{transform:translateY(-4px) scale(1.02)}
+  .ghost{
+    color:var(--muted);background:transparent;border:1px solid rgba(255,255,255,0.05);border-radius:30px;padding:10px 18px;font-weight:600;
+  }
+
+  /* Intro strip */
+  .intro{
+    margin-top: -40px; display:flex;gap:14px;align-items:center;justify-content:center;padding:12px 18px;
+    color:var(--muted);font-weight:600;
+  }
+  .pill{background:rgba(255,255,255,0.03);padding:8px 14px;border-radius:999px;font-size:.95rem;display:inline-flex;gap:10px;align-items:center}
+
+  /* Sections */
+  .section{padding:72px 22px;max-width:1200px;margin:0 auto}
+  .section h2{font-family:'Montserrat',sans-serif;font-size:2rem;margin:0 0 18px;color:var(--accent2);text-shadow:0 0 12px rgba(0,224,255,0.06)}
+  .lead{color:var(--muted);max-width:900px;margin-bottom:24px}
+
+  /* About split */
+  .split{display:grid;grid-template-columns:1fr 1fr;gap:28px;align-items:center}
+  .split img{width:100%;border-radius:12px;box-shadow:0 20px 40px rgba(0,0,0,0.6)}
+  .bio p{color:var(--muted);margin-bottom:10px}
+
+  @media (max-width:880px){
+    .split{grid-template-columns:1fr; text-align:center}
+    .split img{max-width:420px;margin:0 auto}
+  }
+
+  /* Albums (grid) with CSS-only detail overlay using :target */
+  .albums-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px}
+  .album{
+    background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+    padding:12px;border-radius:12px;overflow:hidden;position:relative;border:1px solid rgba(255,255,255,0.03);
+    transition:transform .25s, box-shadow .25s;
+  }
+  .album:hover{transform:translateY(-8px);box-shadow:0 30px 60px rgba(0,0,0,0.6)}
+  .album-cover{border-radius:10px;overflow:hidden}
+  .album-meta{display:flex;justify-content:space-between;align-items:center;padding:12px 6px 0}
+  .album-meta h3{margin:0;font-size:1.05rem}
+  .album-meta span{color:var(--muted);font-size:.95rem}
+
+  /* detail overlay */
+  .detail{
+    position:fixed;inset:0;display:grid;place-items:center;background:linear-gradient(180deg, rgba(2,2,2,0.9), rgba(2,2,2,0.96));z-index:80;
+    padding:30px;opacity:0;pointer-events:none;transform:scale(.98);transition:all .25s;
+  }
+  .detail:target{opacity:1;pointer-events:auto;transform:scale(1)}
+  .detail-card{background:linear-gradient(180deg,#0b0b0c,#0f0f11);max-width:900px;width:100%;border-radius:12px;padding:20px;box-shadow:0 30px 80px rgba(0,0,0,0.8);position:relative}
+  .close{position:absolute;right:16px;top:12px;background:transparent;color:var(--muted);border:1px solid rgba(255,255,255,0.03);padding:8px 10px;border-radius:8px;text-decoration:none}
+  .detail-card h3{margin-top:10px;color:var(--accent1)}
+  .tracklist{margin-top:14px}
+  .tracklist li{padding:8px 0;border-bottom:1px dashed rgba(255,255,255,0.03);color:var(--muted)}
+
+  /* Tours timeline */
+  .timeline{display:grid;gap:16px}
+  .gig{display:flex;gap:14px;align-items:flex-start;background:linear-gradient(180deg,rgba(255,255,255,0.02),transparent);padding:16px;border-radius:10px}
+  .gig .date{min-width:110px;background:rgba(255,255,255,0.03);padding:8px;border-radius:8px;text-align:center;font-weight:700;color:var(--accent2)}
+  .gig .meta{flex:1}
+  .gig h4{margin:0 0 6px}
+  .gig p{color:var(--muted);margin:0}
+
+  /* Gallery */
+  .gallery{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px}
+  .gallery a{display:block;border-radius:8px;overflow:hidden;position:relative}
+  .gallery img{width:100%;height:160px;object-fit:cover;transition:transform .35s,filter .35s;display:block}
+  .gallery a:hover img{transform:scale(1.08);filter:brightness(1.05) saturate(1.2)}
+  .tag{display:inline-block;padding:6px 10px;border-radius:999px;background:rgba(255,255,255,0.03);color:var(--muted);font-size:.85rem}
+
+  /* Contact & subscribe at bottom */
+  .contact{display:grid;grid-template-columns:1fr 360px;gap:24px;align-items:center}
+  .contact .contact-info h3{margin:0;color:var(--accent2)}
+  .contact .contact-info p{color:var(--muted)}
+  .subscribe-box{background:linear-gradient(90deg, rgba(255,0,87,0.06), rgba(0,224,255,0.04));padding:18px;border-radius:12px}
+  .subscribe-box input{width:100%;padding:12px;border-radius:8px;border:1px solid rgba(255,255,255,0.04);margin-bottom:10px;background:transparent;color:inherit}
+  .subscribe-box button{width:100%;padding:12px;border-radius:8px;border:0;background:linear-gradient(90deg,var(--accent1),var(--accent2));color:#070606;font-weight:800;cursor:pointer}
+
+  /* Sticky mini player */
+  .mini-player{
+    position:fixed;left:18px;bottom:18px;z-index:85;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+    padding:10px;border-radius:12px;border:1px solid rgba(255,255,255,0.03);display:flex;gap:12px;align-items:center;backdrop-filter:blur(6px)
+  }
+  .mini-player audio{width:220px}
+
+  /* small screens */
+  @media (max-width:720px){
+    header{padding:12px 16px}
+    nav{display:none}
+    .hero-title{font-size:2.4rem}
+    .mini-player{left:10px;right:10px;justify-content:center}
+    .contact{grid-template-columns:1fr}
+  }
+
+  /* body */
+  body {
+    background-image: url('https://static.vecteezy.com/system/resources/thumbnails/001/401/677/small_2x/abstract-polygonal-shape-black-background-free-vector.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    margin: 0;
+    padding: 0;
+}
+
+
+</style>
+</head>
+<body>
+
+<!-- Header -->
+<header>
+  <a class="brand" href="#hero">
+    <div class="logo">RR</div>
+    <div>
+      <h1 style="font-size:0.95rem;margin:0">Riff Riot</h1>
+      <div style="font-size:.77rem;color:var(--muted)">Official Band Site</div>
+    </div>
+  </a>
+
+  <nav aria-label="Main navigation">
+    <a href="#about">About</a>
+    <a href="#albums">Albums</a>
+    <a href="#tours">Tour</a>
+    <a href="#gallery">Gallery</a>
+    <a href="#contact">Contact</a>
+  </nav>
+</header>
+
+<!-- HERO -->
+<section id="hero" class="hero" aria-label="Hero">
+  <div class="hero-bg" role="img" aria-hidden="true"></div>
+
+  <div class="hero-inner" style="max-width:1100px">
+    <h2 class="hero-title">RIFF RIOT</h2>
+    <p class="hero-sub">A sonic storm of guitar-driven anthems — live shows, neon lights, and beats that won't let you go.</p>
+
+    <div class="hero-cta">
+      <a class="cta" href="#tours">See Tour Dates</a>
+      <a class="ghost" href="#albums">Latest Releases</a>
+    </div>
+
+    <div class="intro" aria-hidden="true" style="margin-top:24px">
+      <div class="pill">🔥 Live energy</div>
+      <div class="pill">🎸 Guitar-driven</div>
+      <div class="pill">🌍 Worldwide shows</div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about" class="section">
+  <h2>About Riff Riot</h2>
+  <p class="lead">Riff Riot formed in the underground clubs, bringing raw riffs and explosive choruses to packed rooms. We write songs that hit hard and stay in your head — a mix of classic rock muscle and modern production polish.</p>
+
+  <div class="split">
+    <img src="https://images.unsplash.com/photo-1518972559570-7cc1309f3229?auto=format&fit=crop&w=1200&q=80" alt="Band performing live">
+    <div class="bio">
+      <h3 style="color:var(--accent1);margin-top:0">The Sound</h3>
+      <p>We blend crunchy guitars, synth textures, and vocal hooks. Each song is crafted to be big on stage and intimate on headphones.</p>
+      <p class="bio">Our catalog ranges from blazing rock bangers to moody indie epics. We believe in loud honesty — and we bring that energy to every show.</p>
+
+      <div style="margin-top:12px">
+        <a class="tag" href="#albums">Latest Album: Neon Nights</a>
+        <a class="tag" href="#tours">Tour Info</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ALBUMS -->
+<section id="albums" class="section">
+  <h2>Latest Releases</h2>
+  <p class="lead">Explore our recent albums. Click an album to view tracks and details (CSS-only overlay).</p>
+
+  <div class="albums-grid">
+    <!-- album 1 -->
+    <article class="album">
+      <a href="#d1" class="album-cover" aria-label="Open Electric Dreams details">
+        <img src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=800&q=80" alt="Electric Dreams album cover">
+      </a>
+      <div class="album-meta">
+        <h3>Electric Dreams</h3>
+        <span>2025 • EP</span>
+      </div>
+    </article>
+
+    <!-- album 2 -->
+    <article class="album">
+      <a href="#d2" class="album-cover">
+        <img src="https://images.unsplash.com/photo-1526470608268-f674ce90ebd4?auto=format&fit=crop&w=800&q=80" alt="Neon Nights cover">
+      </a>
+      <div class="album-meta">
+        <h3>Neon Nights</h3>
+        <span>2024 • LP</span>
+      </div>
+    </article>
+
+    <!-- album 3 -->
+    <article class="album">
+      <a href="#d3" class="album-cover">
+        <img src="https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?auto=format&fit=crop&w=800&q=80" alt="Pulse of the City">
+      </a>
+      <div class="album-meta">
+        <h3>Pulse of the City</h3>
+        <span>2022 • LP</span>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- ALBUM DETAILS (CSS :target overlays) -->
+<div id="d1" class="detail" aria-hidden="false">
+  <div class="detail-card">
+    <a class="close" href="#albums">Close ✕</a>
+    <div style="display:flex;gap:18px;align-items:flex-start;flex-wrap:wrap">
+      <img style="width:220px;border-radius:8px" src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=800&q=80" alt="">
+      <div style="flex:1">
+        <h3>Electric Dreams — EP (2025)</h3>
+        <p style="color:var(--muted)">A short, sharp EP of high-voltage tracks engineered for the stage.</p>
+        <ol class="tracklist">
+          <li>1. Electric Dreams</li>
+          <li>2. Midnight Pulse</li>
+          <li>3. Static Hearts</li>
+          <li>4. Afterglow</li>
+        </ol>
+        <p style="margin-top:12px;color:var(--muted)">Produced by Riff Riot • Mastered at Skyforge Studios</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="d2" class="detail">
+  <div class="detail-card">
+    <a class="close" href="#albums">Close ✕</a>
+    <div style="display:flex;gap:18px;align-items:flex-start;flex-wrap:wrap">
+      <img style="width:220px;border-radius:8px" src="https://images.unsplash.com/photo-1526470608268-f674ce90ebd4?auto=format&fit=crop&w=800&q=80" alt="">
+      <div style="flex:1">
+        <h3>Neon Nights — LP (2024)</h3>
+        <p style="color:var(--muted)">A neon-lit journey across nights of the city, synth textures meet live guitars.</p>
+        <ol class="tracklist">
+          <li>1. Neon Nights</li>
+          <li>2. Traffic Lights</li>
+          <li>3. Downtown Love</li>
+          <li>4. Siren Song</li>
+          <li>5. Outro (Till Dawn)</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="d3" class="detail">
+  <div class="detail-card">
+    <a class="close" href="#albums">Close ✕</a>
+    <div style="display:flex;gap:18px;align-items:flex-start;flex-wrap:wrap">
+      <img style="width:220px;border-radius:8px" src="https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?auto=format&fit=crop&w=800&q=80" alt="">
+      <div style="flex:1">
+        <h3>Pulse of the City — LP (2022)</h3>
+        <p style="color:var(--muted)">Our breakthrough album that put us on the map. Live anthems and singalong choruses.</p>
+        <ol class="tracklist">
+          <li>1. Wake the Streets</li>
+          <li>2. Asphalt Lovers</li>
+          <li>3. Echoes</li>
+          <li>4. Pulse of the City</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TOUR -->
+<section id="tours" class="section">
+  <h2>Upcoming Tour</h2>
+  <p class="lead">We're hitting the road. Tickets drop soon — sign up to the list below to get first access.</p>
+
+  <div class="timeline">
+    <div class="gig">
+      <div class="date">Aug 25</div>
+      <div class="meta">
+        <h4>Rock Night — The Terminal, NYC</h4>
+        <p>Doors 7pm • With special guests: The Volt</p>
+      </div>
+    </div>
+
+    <div class="gig">
+      <div class="date">Sep 10</div>
+      <div class="meta">
+        <h4>Summer Fest — LA Open Air</h4>
+        <p>Main Stage • 6pm • Tickets available online</p>
+      </div>
+    </div>
+
+    <div class="gig">
+      <div class="date">Oct 05</div>
+      <div class="meta">
+        <h4>Beach Vibes — Miami Pier</h4>
+        <p>Sunset set • 5:30pm • Bring the crew</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section id="gallery" class="section">
+  <h2>Photo Gallery</h2>
+  <p class="lead">Live shots, behind-the-scenes, and crowd moments.</p>
+
+  <div class="gallery">
+    <a href="#" aria-hidden="true"><img src="https://images.unsplash.com/photo-1518972559570-7cc1309f3229?auto=format&fit=crop&w=800&q=80" alt="live shot"></a>
+    <a href="#" aria-hidden="true"><img src="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=800&q=80" alt="stage lights"></a>
+    <a href="#" aria-hidden="true"><img src="https://images.unsplash.com/photo-1487180144351-b8472da7d491?auto=format&fit=crop&w=800&q=80" alt="DJ setup"></a>
+    <a href="#" aria-hidden="true"><img src="https://images.unsplash.com/photo-1507874457470-272b3c8d8ee2?auto=format&fit=crop&w=800&q=80" alt="crowd"></a>
+    <a href="#" aria-hidden="true"><img src="https://images.unsplash.com/photo-1544785349-c4a5301826fd?auto=format&fit=crop&w=800&q=80" alt="band backstage"></a>
+    <a href="#" aria-hidden="true"><img src="https://images.unsplash.com/photo-1549924231-f129b911e442?auto=format&fit=crop&w=800&q=80" alt="guitar closeup"></a>
+  </div>
+</section>
+
+<!-- CONTACT + SUBSCRIBE at bottom -->
+<section id="contact" class="section">
+  <h2>Contact & Fan List</h2>
+  <div class="contact">
+    <div class="contact-info">
+      <h3>Bookings & Press</h3>
+      <p class="lead">Email: <a href="mailto:bookings@riffriotband.com">bookings@riffriotband.com</a></p>
+      <p class="lead">Management: Riot Road Agency</p>
+      <p style="color:var(--muted)">Follow us on Instagram, TikTok and Spotify for real-time updates.</p>
+    </div>
+
+    <div class="subscribe-box">
+      <h3 style="margin-top:0;color:var(--accent1)">Join the List</h3>
+      <p style="color:var(--muted);margin-top:0">Get presale codes and tour announcements first.</p>
+      <form onsubmit="return false;">
+        <input type="email" placeholder="Your email address" aria-label="email">
+        <button type="submit">Join Fan List</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<footer style="padding:26px 10px;background:#060606;text-align:center;color:var(--muted)">
+  <div style="max-width:1100px;margin:0 auto">© 2025 Riff Riot • All rights reserved • <span style="color:var(--accent2)">Stay loud</span></div>
+</footer>
+
+<!-- Sticky mini player -->
+<div class="mini-player" aria-hidden="true">
+  <div style="font-weight:700;color:var(--accent1)">Now playing</div>
+  <audio controls>
+    <!-- sample track (external demo) -->
+    <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+    Your browser does not support audio.
+  </audio>
+</div>
+
+</body>
+</html>
